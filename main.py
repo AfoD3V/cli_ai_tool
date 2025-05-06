@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
+import typer
 
 class ChatBot:
     """
@@ -144,6 +145,7 @@ class CLI:
         while True:
             user_input = input("Prompt: ")
             if user_input.lower() == "exit":
+                self.console.print(f"[bold red]Bye![/bold red]")
                 break
             elif user_input == "":
                 print("Empty prompt, please re-enter...")
@@ -155,8 +157,17 @@ class CLI:
                 except Exception as e:
                     self.console.print(f"[bold red]Error:[/bold red] {e}")
 
-if __name__ == "__main__":
-    bot = ChatBot()
+def main(
+        model: str = typer.Option("meta-llama/Meta-Llama-3-8B-Instruct",
+                                    help="Model to use for the chatbot."),
+        system: str = typer.Option("You are friendly assistant",
+                                    help="Option to adjust how model is going to behave.")
+
+):
+    
+    bot = ChatBot(model=model)
     cli = CLI(chat_bot=bot)
     cli.run()
 
+if __name__ == "__main__":
+    typer.run(main)
