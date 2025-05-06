@@ -5,7 +5,10 @@ from rich.console import Console
 from rich.markdown import Markdown
 import typer
 import inquirer
-import re
+from yaspin import yaspin
+import emoji
+
+
 
 class ChatBot:
     """
@@ -72,6 +75,7 @@ class ChatBot:
             raise ValueError("API_KEY not found in environment variables.")
         return api_key
     
+    @yaspin(text="Thinking...")
     def ask(self, prompt_message):
         """
         Send a prompt to the LLM and get a response.
@@ -147,7 +151,8 @@ class CLI:
         while True:
             user_input = input("\nPrompt: ")
             if user_input.lower() == "exit":
-                self.console.print(f"[bold red]Bye![/bold red]")
+                emoji_str = emoji.emojize(":wave:", language="alias") #??
+                self.console.print(f"{emoji_str} [bold red] Bye![/bold red]")
                 break
             elif user_input == "":
                 print("Empty prompt, please re-enter...")
@@ -166,7 +171,6 @@ def main(
                                     help="Option to adjust how model is going to behave.")
 
 ):
-    # meta-llama/Meta-Llama-3-8B-Instruct
     if model == "":
         questions = [
         inquirer.List('model',
