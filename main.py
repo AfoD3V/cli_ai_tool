@@ -4,6 +4,11 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
 import typer
+import inquirer
+from yaspin import yaspin
+import emoji
+import pyfiglet
+
 
 class ChatBot:
     """
@@ -70,6 +75,7 @@ class ChatBot:
             raise ValueError("API_KEY not found in environment variables.")
         return api_key
     
+    @yaspin(text="Thinking...")
     def ask(self, prompt_message):
         """
         Send a prompt to the LLM and get a response.
@@ -141,11 +147,13 @@ class CLI:
         
         Exception handling is implemented to catch and display errors.
         """
+        print(pyfiglet.figlet_format("CLI Chat-Bot"))
         self.console.print("[bold green]Chatbot is ready! Type 'exit' to quit.[/bold green]")
         while True:
-            user_input = input("Prompt: ")
+            user_input = input("\nPrompt: ")
             if user_input.lower() == "exit":
-                self.console.print(f"[bold red]Bye![/bold red]")
+                emoji_str = emoji.emojize(":wave:", language="alias") #??
+                self.console.print(f"{emoji_str} [bold red] Bye![/bold red]")
                 break
             elif user_input == "":
                 print("Empty prompt, please re-enter...")
@@ -153,19 +161,29 @@ class CLI:
             else:
                 try:
                     response = self.chatbot.ask(user_input)
-                    self.console.print(Markdown(response))
+                    self.console.print(Markdown(f"<br>Response: {response}"))
                 except Exception as e:
                     self.console.print(f"[bold red]Error:[/bold red] {e}")
 
 def main(
-        model: str = typer.Option("meta-llama/Meta-Llama-3-8B-Instruct",
+        model: str = typer.Option("",
                                     help="Model to use for the chatbot."),
         system: str = typer.Option("You are friendly assistant",
                                     help="Option to adjust how model is going to behave.")
 
 ):
-    
-    bot = ChatBot(model=model)
+    print(pyfiglet.figlet_format("CLI   Chat - Bot"))
+    print(pyfiglet.FigletFont.getFonts())
+    if model == "":
+        questions = [
+        inquirer.List('model',
+                            message="Select your model:",
+                            choices=['meta-llama/Meta-Llama-3-8B-Instruct', 'Qwen/Qwen3-235B-A22B'],
+                            carousel=True,
+                            ),
+        ]
+        model = inquirer.prompt(questions)
+    bot = ChatBot(model=model["model"], system_instruction=system)
     cli = CLI(chat_bot=bot)
     cli.run()
 
