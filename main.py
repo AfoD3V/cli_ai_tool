@@ -7,7 +7,7 @@ import typer
 import inquirer
 from yaspin import yaspin
 import emoji
-
+import pyfiglet
 
 
 class ChatBot:
@@ -147,6 +147,7 @@ class CLI:
         
         Exception handling is implemented to catch and display errors.
         """
+        print(pyfiglet.figlet_format("CLI Chat-Bot"))
         self.console.print("[bold green]Chatbot is ready! Type 'exit' to quit.[/bold green]")
         while True:
             user_input = input("\nPrompt: ")
@@ -171,6 +172,8 @@ def main(
                                     help="Option to adjust how model is going to behave.")
 
 ):
+    print(pyfiglet.figlet_format("CLI   Chat - Bot"))
+    print(pyfiglet.FigletFont.getFonts())
     if model == "":
         questions = [
         inquirer.List('model',
