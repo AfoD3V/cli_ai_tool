@@ -173,7 +173,7 @@ def main(
 
 ):
     print(pyfiglet.figlet_format("CLI   Chat - Bot"))
-    print(pyfiglet.FigletFont.getFonts())
+    
     if model == "":
         questions = [
         inquirer.List('model',
