@@ -7,23 +7,29 @@ A simple command-line interface for chatting with a Large Language Model (LLM) u
 
 ## 📖 Table of Contents
 
-- [Overview](#overview)  
-- [Requirements](#requirements)  
-- [Installation](#installation)  
-- [Configuration](#configuration)  
-- [Usage](#usage)  
-- [Project Structure](#project-structure)  
-- [License](#license)  
+- [Overview](#overview)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [License](#license)
 
 ---
 
 ## 📌 Overview
 
-This tool allows you to chat with a powerful LLM directly from your terminal. It supports:
+This tool allows you to chat with a powerful LLM directly from your terminal, providing a seamless and efficient way to interact with AI.
 
-- Markdown rendering for clean output
-- Session-based message history
-- Lightweight setup using `uv`
+---
+
+## ✨ Features
+
+- **Markdown Rendering**: Clean and readable output.
+- **Session-Based History**: Keeps track of the conversation.
+- **Lightweight Setup**: Uses `uv` for fast dependency management.
+- **Interactive Model Selection**: Choose your preferred LLM model.
 
 ---
 
@@ -31,7 +37,7 @@ This tool allows you to chat with a powerful LLM directly from your terminal. It
 
 - Python **3.11+**
 - [DeepInfra](https://deepinfra.com/) account and API key
-- [`uv`](https://github.com/astral-sh/uv) for dependency management (alternative to pip)
+- [`uv`](https://github.com/astral-sh/uv) for dependency management
 
 ---
 
@@ -50,14 +56,9 @@ This tool allows you to chat with a powerful LLM directly from your terminal. It
    ```
 
 3. **Install dependencies using `uv`**
-   - If you're using `requirements.txt`:
-     ```bash
-     uv pip install -r requirements.txt
-     ```
-   - Or if using `pyproject.toml`:
-     ```bash
-     uv pip install
-     ```
+   ```bash
+   uv pip install
+   ```
 
 ---
 
@@ -69,7 +70,7 @@ Create a `.env` file in the project root with your API key:
 API_KEY=your_deepinfra_api_key
 ```
 
-> ✅ Tip: Never commit `.env` files to version control.
+> ✅ **Tip**: Never commit `.env` files to version control.
 
 ---
 
@@ -81,7 +82,7 @@ Run the chatbot with:
 uv run main.py
 ```
 
-Alternatively (if not using `uv run`):
+Alternatively, if you are not using `uv run`:
 
 ```bash
 python main.py
@@ -109,13 +110,11 @@ To exit the chat, type `exit`.
 cli_ai_tool/
 ├── main.py             # CLI logic and chatbot class
 ├── .env                # API key (excluded from version control)
-├── requirements.txt    # Package list (if not using pyproject.toml)
-└── pyproject.toml      # Optional: modern dependency management
+└── pyproject.toml      # Dependency management
 ```
 
 ---
 
 ## 📄 License
 
-This project is intended for **learning and experimentation** purposes.  
-Feel free to modify and extend it as needed.
+This project is intended for **learning and experimentation** purposes. Feel free to modify and extend it as needed.
